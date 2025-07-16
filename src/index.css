@@ -1,11 +1,19 @@
 @import "tailwindcss";
 
 .passeio p {
-  color: var(--color-lime-950);
   font-weight: 600;
 }
 
 .passeio p span {
   font-weight: 400;
-  color: var(--color-yellow-800)
+}
+
+
+body {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+body::-webkit-scrollbar {
+  display: none;
 }
