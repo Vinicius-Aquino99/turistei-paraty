@@ -2,6 +2,8 @@ import { useState } from "react";
 import Passeio from "./components/Passeio";
 import Navbar from "./components/Navbar";
 import { passeios } from "./data";
+import Modal from "./components/Modal";
+
 const categoriasUnicas = [
   "Todos",
   ...new Set(passeios.map((p) => p.categoria)),
@@ -11,6 +13,8 @@ function App() {
   const [activeCategory, setActiveCategory] = useState("Todos");
   const [darkMode, setDarkMode] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedPasseio, setSelectedPasseio] = useState(null); // NOVO
 
   const filteredPasseios = passeios.filter((p) => {
     const matchCategoria =
@@ -25,10 +29,15 @@ function App() {
     return matchCategoria && matchTexto;
   });
 
+  const handleOpenModal = (passeio) => {
+    setSelectedPasseio(passeio);
+    setIsOpen(true);
+  };
+
   return (
     <div
       className={`${
-        darkMode ? "bg-gray-900" : "bg-lime-300 text-black"
+        darkMode ? "bg-gray-900" : "bg-lime-200 text-black"
       } min-h-screen pt-20 px-6 transition-colors duration-300`}
     >
       <Navbar
@@ -39,6 +48,7 @@ function App() {
         categorias={categoriasUnicas}
       />
 
+      {/* Barra de pesquisa */}
       <div className="flex justify-center mb-6">
         <input
           type="text"
@@ -55,21 +65,25 @@ function App() {
         />
       </div>
 
+      {/* Container dos Passeios */}
       <div className="flex flex-col gap-8 items-center">
         {filteredPasseios.map((passeio) => (
           <Passeio
             key={passeio.id}
-            image={passeio.img}
-            nome={passeio.nome}
-            descricao={passeio.descricao}
-            dificuldade={passeio.dificuldade}
-            duracao={passeio.duracao}
-            preco={passeio.preco}
-            categoria={passeio.categoria}
-            darkMode={darkMode}
+            {...passeio}
+            onOpen={() => handleOpenModal(passeio)} // 👈 aqui
           />
         ))}
       </div>
+
+      {/* Modal */}
+      {isOpen && selectedPasseio && (
+        <Modal
+          isOpen={isOpen}
+          setIsOpen={setIsOpen}
+          passeio={selectedPasseio}
+        />
+      )}
     </div>
   );
 }

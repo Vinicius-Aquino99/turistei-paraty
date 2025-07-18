@@ -1,7 +1,8 @@
 import { motion } from 'framer-motion';
 import { FaClock, FaMoneyBillWave, FaStar } from 'react-icons/fa';
+import Modal from './Modal'
 
-const Passeio = ({ id, image, nome, descricao, dificuldade, duracao, preco, categoria, darkMode }) => {
+const Passeio = ({ id, img, nome, descricao, dificuldade, duracao, preco, categoria, darkMode, onOpen }) => {
   const difficultyColors = {
     Fácil: "bg-green-500",
     Médio: "bg-yellow-500",
@@ -10,6 +11,7 @@ const Passeio = ({ id, image, nome, descricao, dificuldade, duracao, preco, cate
 
   return (
     <motion.div
+      onClick={onOpen}
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       whileHover={{ scale: 1.02 }}
@@ -17,7 +19,7 @@ const Passeio = ({ id, image, nome, descricao, dificuldade, duracao, preco, cate
       className={`passeio flex flex-col md:flex-row w-full max-w-4xl gap-6 shadow-lg rounded-2xl p-6 hover:shadow-xl transition-shadow relative ${darkMode ?  'bg-gray-800' : 'bg-yellow-200'}`}
     >
       <img 
-        src={image}
+        src={img}
         alt={`Foto do passeio ${nome}`} 
         className="w-full md:w-[250px] h-[200px] object-cover rounded-2xl transition-transform duration-300 group-hover:scale-105"
       />
@@ -46,15 +48,18 @@ const Passeio = ({ id, image, nome, descricao, dificuldade, duracao, preco, cate
           </div>
         </div>
 
-        <motion.a
-          whileTap={{ scale: 0.95 }}
-          href={`/agendar/${id}`}
-          className="bg-lime-800 px-6 py-2 text-yellow-200 text-center rounded-2xl hover:bg-lime-900 hover:scale-105 transition-all duration-300 mt-4 self-end"
-        >
-          Agendar
-        </motion.a>
+        <div className='flex justify-end gap-4'>
+          <motion.a
+            whileTap={{ scale: 0.95 }}
+            href={`/agendar/${id}`}
+            className="bg-lime-800 px-6 py-2 text-yellow-200 text-center rounded-2xl hover:bg-lime-900 hover:scale-105 transition-all duration-300 mt-4 self-end"
+          >
+            Agendar
+          </motion.a>
+        </div>
       </div>
     </motion.div>
+    
   );
 };
 

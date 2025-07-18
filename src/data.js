@@ -39,7 +39,7 @@ export const passeios = [
   descricao: "Trilha dentro do Saco do Mamanguá, único fiorde tropical do Brasil. Venha conhecer essa paisagem com a melhor equipe de turismo!",
   duracao: '2h',
   categoria: "Trilha",
-  preco: '2.200',
+  preco: 2200,
   dificuldade: "Médio",
   empresas: ["Guia 1", "Guia 2"]
 },
