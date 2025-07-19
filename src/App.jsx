@@ -69,6 +69,7 @@ function App() {
       <div className="flex flex-col gap-8 items-center">
         {filteredPasseios.map((passeio) => (
           <Passeio
+            darkMode={darkMode}
             key={passeio.id}
             {...passeio}
             onOpen={() => handleOpenModal(passeio)} // 👈 aqui
@@ -79,6 +80,7 @@ function App() {
       {/* Modal */}
       {isOpen && selectedPasseio && (
         <Modal
+        darkMode={darkMode}
           isOpen={isOpen}
           setIsOpen={setIsOpen}
           passeio={selectedPasseio}
